@@ -22,27 +22,27 @@ public class Robot extends TimedRobot {
     m_stick = new Joystick(0);
 
     //Pneumatics
-    comp = new Compressor(100, PneumaticsModuleType.CTREPCM);
-    solenoid = new DoubleSolenoid(101, PneumaticsModuleType.CTREPCM, 0, 1);
+    comp = new Compressor(PneumaticsModuleType.CTREPCM);
+    solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
   }
 
   @Override 
   public void teleopPeriodic() {
 
-    if (m_stick.getRawButton(1)) { 
+    if (m_stick.getRawAxis(2) > 0.4) { 
       solenoid.set(DoubleSolenoid.Value.kForward);
     }
-    else if (m_stick.getRawButton(2)) {
+    else if (m_stick.getRawAxis(3) > 0.4) {
       solenoid.set(DoubleSolenoid.Value.kReverse);
     }
     else {
       solenoid.set(DoubleSolenoid.Value.kOff);
     }
 
-    if (m_stick.getRawButton(3)) {
+    if (m_stick.getRawButton(1)) {
       comp.enableDigital();
     }
-    else if (m_stick.getRawButton(4)) {
+    else if (m_stick.getRawButton(2)) {
       comp.disable();
     }
   }
